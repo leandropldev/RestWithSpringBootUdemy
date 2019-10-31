@@ -1,5 +1,8 @@
 package com.udemy.leandro.maths;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class NumberMath {
 
 	public Double sum(Double numberOne, Double numberTwo) {
