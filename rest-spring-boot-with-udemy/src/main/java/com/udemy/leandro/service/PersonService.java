@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.udemy.leandro.converters.DozerConverter;
+import com.udemy.leandro.converters.custom.PersonConverter;
 import com.udemy.leandro.data.model.Person;
 import com.udemy.leandro.data.vo.PersonVO;
+import com.udemy.leandro.data.vo.PersonVOV2;
 import com.udemy.leandro.exception.ResourceNotFoundException;
 import com.udemy.leandro.repository.PersonRepository;
 
@@ -17,9 +19,17 @@ public class PersonService {
 	@Autowired
 	private PersonRepository repository;
 	
+	@Autowired
+	private PersonConverter personConverter;
+	
 	public PersonVO create(PersonVO person) {
 		Person personEntity = DozerConverter.parseObject(person, Person.class);
 		return DozerConverter.parseObject(repository.save(personEntity), PersonVO.class);
+	}
+	
+	public PersonVOV2 createV2(PersonVOV2 person) {
+		Person personEntity = personConverter.convertVOToEntity(person);
+		return personConverter.convertEntityToVO(repository.save(personEntity));
 	}
 	
 	public List<PersonVO> findAll(){

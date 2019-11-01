@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.leandro.data.vo.PersonVO;
+import com.udemy.leandro.data.vo.PersonVOV2;
 import com.udemy.leandro.service.PersonService;
 
 @RestController
@@ -21,31 +22,36 @@ import com.udemy.leandro.service.PersonService;
 public class PersonController {
 	
 	@Autowired
-	private PersonService service;
+	private PersonService personService;
 	
 	@GetMapping
 	public List<PersonVO> findAll() {
-		return service.findAll();
+		return personService.findAll();
 	}
 
 	@GetMapping("/{id}")
 	public PersonVO findById(@PathVariable("id") Long id) {
-		return service.findById(id);
+		return personService.findById(id);
 	}
 	
 	@PostMapping
 	public PersonVO create(@RequestBody PersonVO person) {
-		return service.create(person);
+		return personService.create(person);
+	}
+	
+	@PostMapping("/v2")
+	public PersonVOV2 createV2(@RequestBody PersonVOV2 person) {
+		return personService.createV2(person);
 	}
 	
 	@PutMapping
 	public PersonVO update(@RequestBody PersonVO person) {
-		return service.update(person);
+		return personService.update(person);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-		service.delete(id);
+		personService.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }
