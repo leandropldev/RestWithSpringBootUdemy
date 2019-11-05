@@ -18,7 +18,7 @@ import com.udemy.leandro.data.vo.PersonVOV2;
 import com.udemy.leandro.service.PersonService;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 	
 	@Autowired
